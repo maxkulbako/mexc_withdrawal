@@ -35,7 +35,7 @@ async function withdrawRandom(apiKey, apiSecret, coin, network, wallets) {
 
       const url = `https://api.mexc.com/api/v3/capital/withdraw/apply?${queryString}&signature=${signature}`;
 
-      const response = await axios.post(
+      const resp = await axios.post(
         url,
         {},
         {
@@ -44,14 +44,14 @@ async function withdrawRandom(apiKey, apiSecret, coin, network, wallets) {
           },
         }
       );
-
       console.log(`Withdraw to address ${address} with amount ${amount}`);
+      console.log("Response Data:", resp.data);
 
       const pauseDuration = Math.random() * (maxPause - minPause) + minPause;
       await new Promise((resolve) => setTimeout(resolve, pauseDuration));
     }
   } catch (error) {
-    console.error("Error", error);
+    console.error("Error", error.data);
   }
 }
 
